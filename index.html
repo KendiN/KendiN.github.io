@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Kendi Njeru, AI developer and AI safety researcher based in Tampere, Finland.">
+<title>Kendi Njeru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500&display=swap">
+<style>
+/* Layout: banner-style gradient hero with the stacked name, then a single readable column of sections with a label rail on wide screens */
+:root{
+  --bg:#f6f6fc;
+  --surface:#ffffff;
+  --fg:#1a1b3a;
+  --muted:#575a7e;
+  --line:#dcdcee;
+  --accent:#4a46c9;
+  --accent-soft:#ecebfb;
+  --hero-text:#f6f2ff;
+  --display:'Playfair Display', Georgia, 'Times New Roman', serif;
+  --body:'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12122a;--surface:#1a1a36;--fg:#ecebfa;--muted:#a6a8cc;--line:#2d2d52;--accent:#a9a4ff;--accent-soft:#25234d;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12122a;--surface:#1a1a36;--fg:#ecebfa;--muted:#a6a8cc;--line:#2d2d52;--accent:#a9a4ff;--accent-soft:#25234d;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.7;font-weight:300}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.hero{position:relative;overflow:hidden;background:#1b1f4a;color:var(--hero-text)}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(ellipse 45% 70% at 45% 30%, rgba(170,190,255,.7), transparent 70%),
+  radial-gradient(ellipse 40% 80% at 8% 70%, rgba(70,120,255,.8), transparent 70%),
+  radial-gradient(ellipse 40% 90% at 85% 25%, rgba(176,120,255,.85), transparent 72%),
+  radial-gradient(ellipse 30% 60% at 62% 85%, rgba(232,200,255,.55), transparent 70%),
+  linear-gradient(100deg,#1e2a6e 0%,#3a5bd9 30%,#7f9df0 50%,#7b5cd6 72%,#2a1b5e 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 90% at 50% 50%, transparent 45%, rgba(20,16,60,.5) 82%, rgba(14,10,44,.8) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding-block:clamp(56px,10vw,110px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;align-items:center;text-align:center}
+.name{margin:0;font-family:var(--display);line-height:1;text-shadow:0 2px 20px rgba(20,14,70,.35)}
+.name .first{display:block;font-style:italic;font-weight:500;font-size:clamp(56px,11vw,112px);transform:translateX(-.45em)}
+.name .last{display:block;font-weight:600;font-size:clamp(66px,13vw,136px);letter-spacing:-.02em;margin-top:-.22em;transform:translateX(.2em)}
+.role{margin:18px 0 0;font-size:clamp(14px,2vw,18px);letter-spacing:.14em;font-weight:300}
+.hero-links{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid rgba(246,242,255,.45);color:var(--hero-text);text-decoration:none;font-size:14px;font-weight:400;background:rgba(20,16,60,.25);backdrop-filter:blur(4px)}
+.pill:hover{background:rgba(246,242,255,.15)}
+
+main{max-width:1040px;margin:0 auto;padding-block:24px 64px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px 48px;padding-block:48px;border-bottom:1px solid var(--line)}
+section:last-child{border-bottom:0}
+.label{margin:0;font-family:var(--display);font-style:italic;font-weight:500;font-size:28px;line-height:1.2;color:var(--accent);text-wrap:balance}
+.content{min-width:0;display:flex;flex-direction:column;gap:28px}
+.lead{margin:0;font-size:clamp(17px,2vw,19px);max-width:62ch}
+
+.entry{display:grid;gap:4px}
+.entry-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;align-items:baseline}
+.entry h3{margin:0;font-size:17px;font-weight:500;line-height:1.4}
+.when{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.org{margin:0;color:var(--muted);font-size:15px}
+.entry ul{margin:6px 0 0;padding-left:18px;display:grid;gap:6px;max-width:66ch}
+.entry li::marker{color:var(--accent)}
+
+.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.project{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.project h3{margin:0;font-family:var(--display);font-weight:600;font-size:22px;line-height:1.25}
+.project .tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+.project p{margin:0;font-size:15px}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.stack span{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--fg)}
+.project .links{display:flex;flex-wrap:wrap;gap:16px;font-size:14px;font-weight:400}
+
+.skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 32px}
+.skills h3{margin:0 0 4px;font-size:15px;font-weight:500}
+.skills p{margin:0;font-size:15px;color:var(--muted)}
+.plain{margin:0;padding-left:18px;display:grid;gap:6px}
+.plain li::marker{color:var(--accent)}
+
+.contact-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.email{font-family:var(--display);font-size:clamp(22px,4vw,30px);font-weight:500;user-select:all;word-break:break-all}
+.copy{font:inherit;font-size:14px;font-weight:400;padding:8px 16px;border-radius:999px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+.copy:hover{background:var(--accent-soft)}
+footer{text-align:center;font-size:13px;color:var(--muted);padding-block:0 40px}
+
+@media (max-width:760px){
+  section{grid-template-columns:minmax(0,1fr);gap:16px;padding-block:36px}
+  .projects,.skills{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1 class="name"><span class="first">Kendi</span><span class="last">Njeru.</span></h1>
+    <p class="role">AI Developer | AI Safety Researcher</p>
+    <div class="hero-links">
+      <a class="pill" href="#work">Selected projects</a>
+      <a class="pill" href="https://www.linkedin.com/in/kendi-njeru/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="pill" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="about">
+    <h2 class="label">About</h2>
+    <div class="content">
+      <p class="lead">I'm an AI developer and final-year Erasmus Mundus master's student in Artificial Intelligence for Sustainable Societies, studying across Tallinn, Porto and Tampere.</p>
+      <p style="margin:0;max-width:62ch">For the past two years I've been building software with AI at its core, first for client teams and more recently on AI agent projects. A lot of that work happened at hackathons, where I've learned to pick up new tools fast and ship with people I've just met.</p>
+      <p style="margin:0;max-width:62ch">I'm now looking to work on AI beyond individual tools, seeing how it can support different teams across a large organisation, and helping make sure those systems are trustworthy as they get deployed more widely.</p>
+    </div>
+  </section>
+
+  <section id="work">
+    <h2 class="label">Projects</h2>
+    <div class="content">
+      <div class="projects">
+        <article class="project">
+          <span class="tag">Agent infrastructure · ETHGlobal 2026</span>
+          <h3>CommonOS</h3>
+          <p>A deployment and management platform for persistent AI agent fleets. Each agent runs in an isolated pod with a fleet control plane and task routing, and a live 2.5D isometric world shows agents as workers reflecting real compute state.</p>
+          <div class="stack"><span>Next.js</span><span>Phaser</span><span>Kubernetes</span><span>Hono</span><span>MongoDB</span></div>
+          <div class="links"><a href="https://common-os-web.vercel.app" target="_blank" rel="noopener">Live site</a><a href="https://github.com/Arttribute/common-os" target="_blank" rel="noopener">Code</a></div>
+        </article>
+        <article class="project">
+          <span class="tag">AI governance · ETHGlobal 2025</span>
+          <h3>Common Lobbyist</h3>
+          <p>An AI-powered governance coordination system for DAOs. Members signal their priorities with tokens, and AI agents use semantic search over proposals to surface data-driven insights for collective decision-making.</p>
+          <div class="stack"><span>OpenAI embeddings</span><span>MongoDB Vector Search</span><span>Next.js</span><span>Solidity</span></div>
+          <div class="links"><a href="https://common-lobbyist.vercel.app" target="_blank" rel="noopener">Live site</a><a href="https://github.com/Arttribute/common-lobbyist" target="_blank" rel="noopener">Code</a></div>
+        </article>
+        <article class="project">
+          <span class="tag">Open protocol · Contributor</span>
+          <h3>Common Arcade</h3>
+          <p>An open protocol and platform that lets AI agents discover, join and play games and simulations through one shared interface. I implemented human approval for high-risk agent actions, alongside agent identity and payment integration.</p>
+          <div class="stack"><span>TypeScript</span><span>Next.js</span><span>MCP</span><span>AWS</span></div>
+          <div class="links"><a href="https://arcade.agentcommons.io" target="_blank" rel="noopener">Live site</a><a href="https://github.com/Arttribute/common-arcade" target="_blank" rel="noopener">Code</a></div>
+        </article>
+        <article class="project">
+          <span class="tag">AI security · ETHCannes 2026</span>
+          <h3>SkillAuditor</h3>
+          <p>A four-stage audit pipeline for AI agent skills: static analysis, LLM semantic analysis, sandboxed behavioural testing and a synthesis verdict. It catches malicious instructions in agent skills before they're used, and stamps verified results on-chain.</p>
+          <div class="stack"><span>Next.js</span><span>Hono</span><span>Claude API</span><span>Solidity</span><span>MongoDB</span></div>
+          <div class="links"><a href="https://skillauditor.vercel.app" target="_blank" rel="noopener">Live site</a><a href="https://github.com/Arttribute/skillauditor" target="_blank" rel="noopener">Code</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2 class="label">Experience</h2>
+    <div class="content">
+      <div class="entry">
+        <div class="entry-head"><h3>Software Developer</h3><span class="when">Aug 2024 – Jul 2025</span></div>
+        <p class="org">Strategic Business Solutions Limited</p>
+        <ul>
+          <li>Built Python and Django automation tools that replaced manual data aggregation for client teams, cutting reporting turnaround and reducing errors in outputs that fed directly into client decisions.</li>
+          <li>Analysed user behaviour logs and system performance data to find failure patterns in a live platform, turned the findings into a prioritised fix list, and iterated with stakeholders until the issues were resolved.</li>
+          <li>Integrated GenAI components into existing workflows, including automated extraction and synthesis pipelines, working directly with clients so the solution matched how they actually used the data.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><h3>AI Developer Intern</h3><span class="when">Jan – Jul 2024</span></div>
+        <p class="org">Centre for Education and Technology, Tallinn University</p>
+        <ul>
+          <li>Built an AI-driven decision support tool for researchers, using pattern recognition to turn unstructured inputs into structured, usable outputs.</li>
+          <li>Refined classification logic based on researcher feedback to match real use rather than test conditions, and tracked performance across iterations.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><h3>Systems &amp; Network Support Intern</h3><span class="when">Jan – May 2023</span></div>
+        <p class="org">Co-operative Bank of Kenya</p>
+        <ul>
+          <li>Monitored system security and performance in a Security Operations Centre, diagnosing issues to keep critical banking infrastructure running.</li>
+          <li>Provided technical support for digital banking platforms, troubleshooting software and connectivity issues.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2 class="label">Education</h2>
+    <div class="content">
+      <div class="entry">
+        <div class="entry-head"><h3>MA, Artificial Intelligence for Sustainable Societies</h3><span class="when">2025 – 2027</span></div>
+        <p class="org">Erasmus Mundus Joint Programme · Tallinn University, Lusófona University, Tampere University</p>
+        <p style="margin:6px 0 0;max-width:66ch"><strong style="font-weight:500">Thesis (in progress): Identity signals and bias in anonymised LLM-based resume screening.</strong> I'm studying whether removing a candidate's name is enough to stop LLMs from treating people differently, or whether other details on a resume, like languages, university or community involvement, still lead models to score and describe candidates differently across gender and continental African versus Anglophone Western backgrounds. I'm looking at both the scores models give and the explanations behind them.</p>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><h3>BSc, Informatics and Computer Science</h3><span class="when">2020 – 2024</span></div>
+        <p class="org">Strathmore University · First Class Honours</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2 class="label">Skills</h2>
+    <div class="content">
+      <div class="skills">
+        <div><h3>Research methods</h3><p>Empirical audit design, intersectional analysis, bias evaluation, technical documentation</p></div>
+        <div><h3>ML &amp; data science</h3><p>Model evaluation, statistical testing (ANOVA), pipeline design, data cleaning and analysis, embeddings, visualisation</p></div>
+        <div><h3>AI &amp; automation</h3><p>LLM integration, GenAI workflow automation, AI agent development, OpenAI API</p></div>
+        <div><h3>Languages &amp; tools</h3><p>Python, JavaScript, TypeScript, Java, React, Next.js, Django, Git, Linux, GKE, MongoDB, Supabase</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="more">
+    <h2 class="label">Certifications &amp; community</h2>
+    <div class="content">
+      <ul class="plain">
+        <li>AGI Strategy Course and Future of AI, BlueDot Impact</li>
+        <li>Machine Learning Specialisation, Coursera</li>
+        <li>Deep Learning Fundamentals, IBM Skills Network</li>
+        <li>Effective Thesis Programme, Jan – Mar 2026 cohort</li>
+      </ul>
+      <div class="entry">
+        <h3>Women in STEM Outreach, co-founder</h3>
+        <p class="org" style="max-width:62ch">Organising workshops at Kenyan high schools that bring women in tech in to introduce girls to STEM careers and pathways.</p>
+      </div>
+      <div class="entry">
+        <h3>Digital Explorers Programme</h3>
+        <p class="org" style="max-width:62ch">ICT talent exchange across Kenya, the Baltics, Nigeria, Armenia and Iraq.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="label">Contact</h2>
+    <div class="content">
+      <p style="margin:0;max-width:62ch">I'm based in Tampere, Finland, and open to internships, fellowships and roles in AI safety, governance and development.</p>
+      <div class="contact-row">
+        <span class="email" id="email">kendinjeru02@gmail.com</span>
+        <button class="copy" id="copy-email" type="button">Copy email</button>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>Kendi Njeru · Tampere, Finland</footer>
+
+<script>
+document.getElementById('copy-email').addEventListener('click', function(){
+  var btn=this, text=document.getElementById('email').textContent;
+  function done(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy email'},1800)}
+  function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById('email'));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected, press copy'}
+  try{navigator.clipboard.writeText(text).then(done,fallback)}catch(e){fallback()}
+});
+</script>
+</body>
+</html>
